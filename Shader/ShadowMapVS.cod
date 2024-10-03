@@ -71,7 +71,7 @@ dcl_temps 5
 //   o1.x <- <main return value>.depth.x; o1.y <- <main return value>.depth.y; o1.z <- <main return value>.depth.z; o1.w <- <main return value>.depth.w; 
 //   o0.x <- <main return value>.position.x; o0.y <- <main return value>.position.y; o0.z <- <main return value>.position.z; o0.w <- <main return value>.position.w
 //
-#line 10 "C:\Users\2230273\OneDrive - yamaguchigakuen\チEクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\ShadowMapVS.hlsl"
+#line 10 "C:\Users\2230273\Documents\3-1-\HLSL\ShadowMapVS.hlsl"
 itof r0.xyz, l(0, 0, 0, 0)  // r0.x <- p.x; r0.y <- p.y; r0.z <- p.z
 
 #line 12

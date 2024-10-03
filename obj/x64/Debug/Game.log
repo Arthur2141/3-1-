@@ -1,1 +1,115 @@
-﻿  Game.vcxproj -> C:\Users\2230273\OneDrive - yamaguchigakuen\デスクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\bin\x64\Debug\Game.exe
+﻿  Audio.cpp
+  AudioResource.cpp
+  AudioSource.cpp
+  Camera.cpp
+  CameraController.cpp
+  Character.cpp
+  Collision.cpp
+  EarthBall.cpp
+  Effect.cpp
+  EffectManager.cpp
+  Enemy.cpp
+  EnemyManager.cpp
+  EnemySlime.cpp
+  Framework.cpp
+  DebugRenderer.cpp
+  MakeCubeMapShader.cpp
+  PhongDistructShader.cpp
+  RenderTarget.cpp
+  Graphics.cpp
+  ImGuiRenderer.cpp
+  LambertShader.cpp
+  LineRenderer.cpp
+  Model.cpp
+  ModelResource.cpp
+  NoLightShader.cpp
+  ReflectMapShader.cpp
+  Texture.cpp
+  UseCubeMapShader.cpp
+  WaterSurfaceRipplesShader.cpp
+  PhongDrawShadowShader.cpp
+  PhongShader.cpp
+  ShadowMapShader.cpp
+  SkyBox.cpp
+  Sprite.cpp
+  ToonShader.cpp
+  WaterSurfaceShader.cpp
+  GamePad.cpp
+  Input.cpp
+  Mouse.cpp
+  Logger.cpp
+  Main.cpp
+  Mathf.cpp
+  ParticleSystem.cpp
+  Player.cpp
+  Projectile.cpp
+  ProjectileHoming.cpp
+  ProjectileManager.cpp
+  ProjectileStraite.cpp
+  ResourceManager.cpp
+  SceneGame00.cpp
+  SceneGame01.cpp
+  SceneGame02.cpp
+  SceneGame03.cpp
+  SceneGame04.cpp
+  SceneGame05.cpp
+  SceneGame06.cpp
+  SceneGame07.cpp
+  SceneLoading.cpp
+  SceneManager.cpp
+  SceneTitle.cpp
+  Sky.cpp
+  StageMain.cpp
+  StageManager.cpp
+  StageMoveFloor.cpp
+C:\Users\2230273\Documents\3-1-\Source\SceneGame01.cpp(254,42): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame01.cpp(630,52): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame01.cpp(630,16): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame01.cpp(631,52): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame01.cpp(631,16): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame01.cpp(644,53): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame01.cpp(644,16): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame01.cpp(645,53): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame01.cpp(645,16): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame01.cpp(658,53): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame01.cpp(658,16): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame01.cpp(659,53): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame01.cpp(659,16): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame03.cpp(241,42): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame02.cpp(239,42): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame03.cpp(465,52): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame02.cpp(463,52): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame03.cpp(465,16): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame02.cpp(463,16): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame03.cpp(466,52): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame02.cpp(464,52): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame03.cpp(466,16): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame02.cpp(464,16): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame02.cpp(477,53): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame03.cpp(479,53): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame02.cpp(477,16): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame03.cpp(479,16): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame02.cpp(478,53): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame03.cpp(480,53): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame02.cpp(478,16): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame03.cpp(480,16): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+  StageWaterSurface.cpp
+C:\Users\2230273\Documents\3-1-\Source\SceneGame04.cpp(240,42): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame04.cpp(464,52): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame04.cpp(464,16): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame04.cpp(465,52): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame04.cpp(465,16): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame04.cpp(478,53): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame04.cpp(478,16): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame04.cpp(479,53): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame04.cpp(479,16): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+  WaterSurface.cpp
+C:\Users\2230273\Documents\3-1-\Source\SceneGame07.cpp(254,92): warning C4244: '引数': 'const LONG' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame07.cpp(254,77): warning C4244: '引数': 'const LONG' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame07.cpp(480,52): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame07.cpp(480,16): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame07.cpp(481,52): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2230273\Documents\3-1-\Source\SceneGame07.cpp(481,16): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+  LINK : 前回のインクリメンタル リンクで bin\x64\Debug\Game.exe が見つからなかったか、ビルドされませんでした。フル リンクを行います。
+     ライブラリ bin\x64\Debug\Game.lib とオブジェクト bin\x64\Debug\Game.exp を作成中
+  Game.vcxproj -> C:\Users\2230273\Documents\3-1-\bin\x64\Debug\Game.exe

@@ -69,13 +69,13 @@ dcl_temps 6
 //   v5.x <- pin.vTex.x; v5.y <- pin.vTex.y; v5.z <- pin.vTex.z; 
 //   o0.x <- <main return value>.x; o0.y <- <main return value>.y; o0.z <- <main return value>.z; o0.w <- <main return value>.w
 //
-#line 32 "C:\Users\2230273\OneDrive - yamaguchigakuen\デスクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\PhongDrawShadow.hlsli"
+#line 32 "C:\Users\2230273\Documents\3-1-\HLSL\PhongDrawShadow.hlsli"
 mov r0.x, l(0.000800)  // r0.x <- Bias
 
 #line 35
 mov r0.yzw, l(0,0.700000,0.700000,0.700000)  // r0.y <- ShadowColor.x; r0.z <- ShadowColor.y; r0.w <- ShadowColor.z
 
-#line 13 "C:\Users\2230273\OneDrive - yamaguchigakuen\チEクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\PhongDrawShadowPS.hlsl"
+#line 13 "C:\Users\2230273\Documents\3-1-\HLSL\PhongDrawShadowPS.hlsl"
 sample_indexable(texture2d)(float,float,float,float) r1.xyzw, v3.xyxx, t0.xyzw, s0  // r1.x <- color.x; r1.y <- color.y; r1.z <- color.z; r1.w <- color.w
 
 #line 14
@@ -125,7 +125,7 @@ mov r2.xyz, v5.xyzx
 mov r0.yzw, r0.yyzw
 mov r0.x, r0.x
 
-#line 58 "C:\Users\2230273\OneDrive - yamaguchigakuen\デスクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\PhongDrawShadow.hlsli"
+#line 58 "C:\Users\2230273\Documents\3-1-\HLSL\PhongDrawShadow.hlsli"
 itof r2.w, l(2)
 sample_l_indexable(texture2d)(float,float,float,float) r2.x, r2.xyxx, t1.xyzw, s1, r2.w
 mov r2.x, r2.x  // r2.x <- d
@@ -140,7 +140,7 @@ movc r0.xyz, r0.xxxx, r0.yzwy, r2.xyzx  // r0.x <- Scolor.x; r0.y <- Scolor.y; r
 #line 61
 mov r0.xyz, r0.xyzx  // r0.x <- <GetShadow return value>.x; r0.y <- <GetShadow return value>.y; r0.z <- <GetShadow return value>.z
 
-#line 24 "C:\Users\2230273\OneDrive - yamaguchigakuen\チEクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\PhongDrawShadowPS.hlsl"
+#line 24 "C:\Users\2230273\Documents\3-1-\HLSL\PhongDrawShadowPS.hlsl"
 mov r0.xyz, r0.xyzx  // r0.x <- shadowColor.x; r0.y <- shadowColor.y; r0.z <- shadowColor.z
 
 #line 25

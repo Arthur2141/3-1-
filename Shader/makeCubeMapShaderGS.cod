@@ -76,7 +76,7 @@ dcl_maxout 18
 //   v[2][2].x <- input[2].Tex.x; v[2][2].y <- input[2].Tex.y; 
 //   v[2][3].x <- input[2].Color.x; v[2][3].y <- input[2].Color.y; v[2][3].z <- input[2].Color.z; v[2][3].w <- input[2].Color.w
 //
-#line 14 "C:\Users\2230273\OneDrive - yamaguchigakuen\チEクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\makeCubeMapShaderGS.hlsl"
+#line 14 "C:\Users\2230273\Documents\3-1-\HLSL\makeCubeMapShaderGS.hlsl"
 mov r0.x, l(0)  // r0.x <- f
 mov r0.y, r0.x  // r0.y <- f
 loop 

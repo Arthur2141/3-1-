@@ -105,7 +105,7 @@ dcl_temps 10
 //   o1.x <- <main return value>.wposition.x; o1.y <- <main return value>.wposition.y; o1.z <- <main return value>.wposition.z; 
 //   o0.x <- <main return value>.position.x; o0.y <- <main return value>.position.y; o0.z <- <main return value>.position.z; o0.w <- <main return value>.position.w
 //
-#line 15 "C:\Users\2230273\OneDrive - yamaguchigakuen\チEクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\PhongDrawShadowVS.hlsl"
+#line 15 "C:\Users\2230273\Documents\3-1-\HLSL\PhongDrawShadowVS.hlsl"
 itof r0.xyz, l(0, 0, 0, 0)  // r0.x <- p.x; r0.y <- p.y; r0.z <- p.z
 
 #line 16
@@ -225,7 +225,7 @@ mov r3.x, r3.x
 mov r3.y, r3.y
 mov r3.z, r3.z
 
-#line 43 "C:\Users\2230273\OneDrive - yamaguchigakuen\デスクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\PhongDrawShadow.hlsli"
+#line 43 "C:\Users\2230273\Documents\3-1-\HLSL\PhongDrawShadow.hlsli"
 mov r3.xyz, r3.xyzx  // r3.x <- wvpPos.x; r3.y <- wvpPos.y; r3.z <- wvpPos.z
 
 #line 44
@@ -255,7 +255,7 @@ add r5.xy, r4.zwzz, l(0.500000, 0.500000, 0.000000, 0.000000)  // r5.y <- wvpPos
 mov r5.xy, r5.xyxx  // r5.x <- <GetShadowTex return value>.x; r5.y <- <GetShadowTex return value>.y
 mov r5.z, r5.z  // r5.z <- <GetShadowTex return value>.z
 
-#line 34 "C:\Users\2230273\OneDrive - yamaguchigakuen\チEクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\PhongDrawShadowVS.hlsl"
+#line 34 "C:\Users\2230273\Documents\3-1-\HLSL\PhongDrawShadowVS.hlsl"
 mov r5.xyz, r5.xyzx  // r5.x <- vout.vTex.x; r5.y <- vout.vTex.y; r5.z <- vout.vTex.z
 
 #line 36

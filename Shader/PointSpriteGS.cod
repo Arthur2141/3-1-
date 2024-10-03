@@ -65,7 +65,7 @@ dcl_maxout 4
 //   v[0][3].x <- In[0].Color.x; v[0][3].y <- In[0].Color.y; v[0][3].z <- In[0].Color.z; v[0][3].w <- In[0].Color.w; 
 //   v[0][4].x <- In[0].Param.x; v[0][4].y <- In[0].Param.y; v[0][4].z <- In[0].Param.z; v[0][4].w <- In[0].Param.w
 //
-#line 11 "C:\Users\2230273\OneDrive - yamaguchigakuen\チEクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\PointSpriteGS.hlsl"
+#line 11 "C:\Users\2230273\Documents\3-1-\HLSL\PointSpriteGS.hlsl"
 mul r0.xyzw, cb0[0].xyzw, v[0][0].xxxx
 mul r1.xyzw, cb0[1].xyzw, v[0][0].yyyy
 add r0.xyzw, r0.xyzw, r1.xyzw

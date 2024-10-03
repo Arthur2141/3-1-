@@ -28,7 +28,7 @@ dcl_temps 1
 //   v1.x <- pin.depth.x; v1.y <- pin.depth.y; v1.z <- pin.depth.z; v1.w <- pin.depth.w; 
 //   o0.x <- <main return value>.x; o0.y <- <main return value>.y; o0.z <- <main return value>.z; o0.w <- <main return value>.w
 //
-#line 10 "C:\Users\2230273\OneDrive - yamaguchigakuen\チEクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\ShadowMapPS.hlsl"
+#line 10 "C:\Users\2230273\Documents\3-1-\HLSL\ShadowMapPS.hlsl"
 div r0.x, v1.z, v1.w  // r0.x <- depth
 
 #line 11

@@ -74,7 +74,7 @@ dcl_indexableTemp x1[2], 4
 //   o0.x <- <main return value>.x; o0.y <- <main return value>.y; o0.z <- <main return value>.z; o0.w <- <main return value>.w; 
 //   x0 <- speeds; x1 <- wave_size
 //
-#line 32 "C:\Users\2230273\OneDrive - yamaguchigakuen\デスクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\WaterSurface.hlsli"
+#line 32 "C:\Users\2230273\Documents\3-1-\HLSL\WaterSurface.hlsli"
 mov r0.xyz, l(0.900000,0.900000,0.900000,0)  // r0.x <- Scolor.x; r0.y <- Scolor.y; r0.z <- Scolor.z
 
 #line 33
@@ -83,7 +83,7 @@ mov r0.w, l(0.000800)  // r0.w <- Bias
 #line 34
 mov r1.x, l(3.141593)  // r1.x <- PI
 
-#line 14 "C:\Users\2230273\OneDrive - yamaguchigakuen\チEクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\WaterSurfacePS.hlsl"
+#line 14 "C:\Users\2230273\Documents\3-1-\HLSL\WaterSurfacePS.hlsl"
 mov r2.xyz, v1.xyzx  // r2.x <- P.x; r2.y <- P.y; r2.z <- P.z
 
 #line 15
@@ -308,7 +308,7 @@ if_nz r3.w
   mov r10.xyzw, cb0[9].xyzw
   mov r11.xyz, r2.xyzx
 
-#line 42 "C:\Users\2230273\OneDrive - yamaguchigakuen\デスクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\WaterSurface.hlsli"
+#line 42 "C:\Users\2230273\Documents\3-1-\HLSL\WaterSurface.hlsli"
   mov r11.xyz, r11.xyzx  // r11.x <- wvpPos.x; r11.y <- wvpPos.y; r11.z <- wvpPos.z
 
 #line 43
@@ -338,7 +338,7 @@ if_nz r3.w
   mov r4.xy, r4.xyxx  // r4.x <- <GetShadowTex return value>.x; r4.y <- <GetShadowTex return value>.y
   mov r4.z, r4.z  // r4.z <- <GetShadowTex return value>.z
 
-#line 73 "C:\Users\2230273\OneDrive - yamaguchigakuen\チEクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\WaterSurfacePS.hlsl"
+#line 73 "C:\Users\2230273\Documents\3-1-\HLSL\WaterSurfacePS.hlsl"
   mov r4.xyz, r4.xyzx  // r4.x <- wTex.x; r4.y <- wTex.y; r4.z <- wTex.z
 
 #line 74
@@ -349,7 +349,7 @@ if_nz r3.w
   mov r0.xyz, r0.xyzx
   mov r0.w, r0.w
 
-#line 60 "C:\Users\2230273\OneDrive - yamaguchigakuen\デスクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\WaterSurface.hlsli"
+#line 60 "C:\Users\2230273\Documents\3-1-\HLSL\WaterSurface.hlsli"
   sample_indexable(texture2d)(float,float,float,float) r3.w, r4.xyxx, t1.yzwx, s1  // r3.w <- d
 
 #line 62
@@ -362,7 +362,7 @@ if_nz r3.w
 #line 63
   mov r0.xyz, r0.xyzx  // r0.x <- <GetShadow return value>.x; r0.y <- <GetShadow return value>.y; r0.z <- <GetShadow return value>.z
 
-#line 74 "C:\Users\2230273\OneDrive - yamaguchigakuen\チEクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\WaterSurfacePS.hlsl"
+#line 74 "C:\Users\2230273\Documents\3-1-\HLSL\WaterSurfacePS.hlsl"
   mov r0.xyz, r0.xyzx  // r0.x <- shadow_color.x; r0.y <- shadow_color.y; r0.z <- shadow_color.z
 
 #line 76
@@ -385,7 +385,7 @@ mov r8.x, cb0[13].w
 mov r8.yzw, cb0[14].xxyw
 mov r2.xyz, r2.xyzx
 
-#line 42 "C:\Users\2230273\OneDrive - yamaguchigakuen\デスクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\WaterSurface.hlsli"
+#line 42 "C:\Users\2230273\Documents\3-1-\HLSL\WaterSurface.hlsli"
 mov r2.xyz, r2.xyzx  // r2.x <- wvpPos.x; r2.y <- wvpPos.y; r2.z <- wvpPos.z
 
 #line 43
@@ -412,7 +412,7 @@ add r0.xy, r0.xyxx, l(0.500000, 0.500000, 0.000000, 0.000000)  // r0.x <- wvpPos
 #line 50
 mov r0.xy, r0.xyxx  // r0.x <- <GetShadowTex return value>.x; r0.y <- <GetShadowTex return value>.y
 
-#line 80 "C:\Users\2230273\OneDrive - yamaguchigakuen\チEクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\WaterSurfacePS.hlsl"
+#line 80 "C:\Users\2230273\Documents\3-1-\HLSL\WaterSurfacePS.hlsl"
 mov r0.xy, r0.xyxx  // r0.x <- wTex.x; r0.y <- wTex.y
 
 #line 82

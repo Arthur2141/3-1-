@@ -76,7 +76,7 @@ dcl_maxout 6
 //   v[2][2].x <- input[2].color.x; v[2][2].y <- input[2].color.y; v[2][2].z <- input[2].color.z; v[2][2].w <- input[2].color.w; 
 //   v[2][3].x <- input[2].wnormal.x; v[2][3].y <- input[2].wnormal.y; v[2][3].z <- input[2].wnormal.z; v[2][3].w <- input[2].wnormal.w
 //
-#line 12 "C:\Users\2230273\OneDrive - yamaguchigakuen\チEクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\ToonGS.hlsl"
+#line 12 "C:\Users\2230273\Documents\3-1-\HLSL\ToonGS.hlsl"
 mov r0.x, l(0)  // r0.x <- i
 mov r0.y, r0.x  // r0.y <- i
 loop 

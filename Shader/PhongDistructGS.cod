@@ -78,7 +78,7 @@ dcl_maxout 3
 //   v[2][3].x <- input[2].texcoord.x; v[2][3].y <- input[2].texcoord.y; 
 //   v[2][4].x <- input[2].color.x; v[2][4].y <- input[2].color.y; v[2][4].z <- input[2].color.z; v[2][4].w <- input[2].color.w
 //
-#line 11 "C:\Users\2230273\OneDrive - yamaguchigakuen\チEクトップ\ゲームプログラミング\ゲームプログラミングⅢ・Ⅳ(20231204)Particle\HLSL\PhongDistructGS.hlsl"
+#line 11 "C:\Users\2230273\Documents\3-1-\HLSL\PhongDistructGS.hlsl"
 mov r0.xyz, -v[0][1].zxyz
 add r0.xyz, r0.xyzx, v[1][1].zxyz  // r0.x <- v1.z; r0.y <- v1.x; r0.z <- v1.y
 
