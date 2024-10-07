@@ -32,6 +32,7 @@ Player::Player()
 
 	// ヒットエフェクト読み込み
 	hitEffect = new Effect("Data/Effect/Hit.efk");
+	FlareEffect = new Effect("Data/Effect/Flare.efk");
 
 	// 待機ステートへ遷移
 	TransitionIdleState();

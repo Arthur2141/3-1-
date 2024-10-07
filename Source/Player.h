@@ -177,6 +177,7 @@ private:
 	int					jumpLimit = 2;
 	ProjectileManager	projectileManager;
 	Effect*				hitEffect = nullptr;
+	Effect*				FlareEffect = nullptr;
 	State				state = State::Idle;
 	float				leftHandRadius = 0.4f;
 	bool				attackCollisionFlag = false; 

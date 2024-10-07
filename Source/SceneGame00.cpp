@@ -2,7 +2,7 @@
 #include "SceneLoading.h"
 #include "SceneManager.h"
 #include "SceneGame00.h"
-
+#include "Graphics/DebugRenderer.h"
 #include "SceneGame01.h"
 #include "Camera.h"
 #include "EnemyManager.h"
@@ -113,6 +113,7 @@ void SceneGame00::Finalize()
 
 	// ステージ終了化
 	StageManager::Instance().Clear();
+	particledatas.clear();
 }
 
 // 更新処理
@@ -136,10 +137,130 @@ void SceneGame00::Update(float elapsedTime)
 	//sky->Update(elapsedTime);
 	// エネミー更新処理
 	EnemyManager::Instance().Update(elapsedTime);
-
+	UpdateEffect(elapsedTime);
 	// エフェクト更新処理
 	EffectManager::Instance().Update(elapsedTime);
+	
 
+}
+
+void SceneGame00::UpdateEffect(float elapsedTime)
+{
+	Graphics& graphics = Graphics::Instance();
+	ID3D11DeviceContext* dc = graphics.GetDeviceContext();
+	D3D11_VIEWPORT viewport;
+	UINT numViewports = 1;
+	dc->RSGetViewports(&numViewports, &viewport);
+	DirectX::XMMATRIX View = DirectX::XMLoadFloat4x4(&Camera::Instance().GetView());
+	DirectX::XMMATRIX Projection = DirectX::XMLoadFloat4x4(&Camera::Instance().GetProjection());
+	DirectX::XMMATRIX World = DirectX::XMMatrixIdentity();
+	for (auto& e : particledatas)
+	{
+		e.velocityX = e.dir.x * 5.0f * elapsedTime;
+		e.velocityY = e.dir.y * 5.0f * elapsedTime;
+		e.velocityZ = e.dir.z * 5.0f * elapsedTime;
+
+		DirectX::XMFLOAT3 start = { e.particlePos.x, e.particlePos.y, e.particlePos.z };
+		DirectX::XMFLOAT3 end = { e.particlePos.x + e.velocityX, e.particlePos.y + e.velocityY, e.particlePos.z + e.velocityZ };
+
+		if (!e.stuck)
+		{
+			e.lifeTime -= elapsedTime;
+		}
+		HitResult hit;
+		if (e.stuck)//"1"にソーセージRaycastが欲しいです。
+		{
+
+		}
+		else
+		{
+			e.particlePos.x += e.velocityX;
+			e.particlePos.y += e.velocityY;
+			e.particlePos.z += e.velocityZ;
+		}
+		if (e.lifeTime < 0)
+		{
+			
+			removes.insert(e);
+		}
+	}
+
+	for (auto& particle : removes)
+	{
+		std::vector<particledata>::iterator it = std::find(particledatas.begin(), particledatas.end(), particle);
+
+		if (it != particledatas.end())
+		{
+			particledatas.erase(it);
+		}
+	}
+	removes.clear();
+
+	Mouse& mouse = Input::Instance().GetMouse();
+	if (mouse.GetButtonDown() & Mouse::BTN_LEFT)
+	{
+		// マウスカーソル座標を取得
+		DirectX::XMFLOAT3 screenPosition;
+		screenPosition.x = static_cast<float>(mouse.GetOldPositionX());
+		screenPosition.y = static_cast<float>(mouse.GetOldPositionY());
+		screenPosition.z = 0.0f;
+
+		DirectX::XMVECTOR screenPos = DirectX::XMLoadFloat3(&screenPosition);
+
+		DirectX::XMVECTOR WorldPosition = DirectX::XMVector3Unproject(
+			screenPos,
+			viewport.TopLeftX,
+			viewport.TopLeftY,
+			viewport.Width,
+			viewport.Height,
+			viewport.MinDepth,
+			viewport.MaxDepth,
+			Projection,
+			View,
+			World
+		);
+
+		DirectX::XMFLOAT3 start;
+		DirectX::XMStoreFloat3(&start, WorldPosition);
+
+		screenPosition.z = 1.0f;
+
+		screenPos = DirectX::XMLoadFloat3(&screenPosition);
+
+		WorldPosition = DirectX::XMVector3Unproject(
+			screenPos,
+			viewport.TopLeftX,
+			viewport.TopLeftY,
+			viewport.Width,
+			viewport.Height,
+			viewport.MinDepth,
+			viewport.MaxDepth,
+			Projection,
+			View,
+			World
+		);
+
+		DirectX::XMFLOAT3 end;
+		DirectX::XMStoreFloat3(&end, WorldPosition);
+
+		DirectX::XMVECTOR playerPosVec = DirectX::XMLoadFloat3(&Camera::Instance().GetEye());
+
+		DirectX::XMVECTOR endPosVec = DirectX::XMLoadFloat3(&end);
+		particledata particleData;
+		HitResult hit;
+		
+
+		DirectX::XMStoreFloat3(&particleData.dir, DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(endPosVec, playerPosVec)));
+
+		DirectX::XMVECTOR particlePosVec;
+		particlePosVec = playerPosVec;
+
+		DirectX::XMStoreFloat3(&particleData.particlePos, particlePosVec);
+
+		particleData.lifeTime = 10.0f;
+		particleData.model = new Model("Data/Model/Sword/Sword.mdl");
+		particledatas.emplace_back(particleData);
+	}
 }
 
 // 描画処理
@@ -301,13 +422,13 @@ void SceneGame00::Render()
 	ID3D11DeviceContext* dc = graphics.GetDeviceContext();
 	ID3D11RenderTargetView* rtv = graphics.GetRenderTargetView();
 	ID3D11DepthStencilView* dsv = graphics.GetDepthStencilView();
-
+	DebugRenderer* debugRend=graphics.GetDebugRenderer();
 	// 画面クリア＆レンダーターゲット設定
 	FLOAT color[] = { 0.5f, 0.5f, 0.5f, 1.0f };	// RGBA(0.0～1.0)
 	dc->ClearRenderTargetView(rtv, color);
 	dc->ClearDepthStencilView(dsv, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	dc->OMSetRenderTargets(1, &rtv, dsv);
-
+	
 	// 描画処理
 	RenderContext rc;
 	rc.lightDirection = lightDirection;	// ライト方向（下方向）
@@ -365,6 +486,14 @@ void SceneGame00::Render()
 		// プレイヤー描画
 		player->Render(dc, shader);
 
+		for (auto& e : particledatas)
+		{
+			debugRend->DrawSphere(e.particlePos, 10, { 1,1,1,1 });
+			if (e.model != nullptr)
+			{
+				shader->Draw(dc, e.model);
+			}
+		}
 		shader->End(dc);
 	}
 
@@ -376,7 +505,8 @@ void SceneGame00::Render()
 
 		// 水面描画
 		waterSurface->Render(dc, shader);
-
+		RenderEnemyGauge(dc, rc.view, rc.projection);
+		
 		shader->End(dc);
 	}
 
@@ -410,10 +540,31 @@ void SceneGame00::Render()
 
 	// 2Dスプライト描画
 	{
-		RenderEnemyGauge(dc, rc.view, rc.projection);
+		
 	}
+	ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_FirstUseEver);
+		ImGui::SetNextWindowSize(ImVec2(300, 300), ImGuiCond_FirstUseEver);
+		if (ImGui::Begin("Debug Menu", nullptr, ImGuiWindowFlags_None))
+		{
+			player->DrawDebugGUI();
+			for (auto& e : particledatas)
+			{
+				if (e.lifeTime > 0);
+				ImGui::InputFloat3("particle", &e.particlePos.x);
+			}
+		}
+		ImGui::SetNextWindowPos(ImVec2(10, 200), ImGuiCond_FirstUseEver);
+			ImGui::SetNextWindowSize(ImVec2(300, 300), ImGuiCond_FirstUseEver);
+			//bool show_another_window = true;
+			//if (ImGui::Begin(u8"シャドーマップ", nullptr, ImGuiWindowFlags_None))
+			//{
+			//	const int w = static_cast<float>(SHADOW_SIZE.x) / 2;
+			//	const int h = static_cast<float>(SHADOW_SIZE.y) / 2;
+			//	//ImGui::Text(u8"スクリーン画像");
+			//	ImGui::Image(shadowMap->GetShaderResourceView(), { w, h });
 
-
+			//}
+			ImGui::End();
 	// 2DデバッグGUI描画
 	//{
 	//	ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_FirstUseEver);
@@ -600,15 +751,15 @@ void SceneGame00::RenderEnemyGauge(
 		DirectX::XMStoreFloat3(&rayEnd, WorldPosition);
 
 		// レイキャスト
-		HitResult hit;
-		if (StageManager::Instance().RayCast(rayStart, rayEnd, hit))
-		{
-			// 敵を配置
-			EnemySlime* slime = new EnemySlime();
-			slime->SetPosition(hit.position);
-			slime->SetTerritory(hit.position, 10.0f);
-			EnemyManager::Instance().Register(slime);
-		}
+		//HitResult hit;
+		//if (StageManager::Instance().RayCast(rayStart, rayEnd, hit))
+		//{
+		//	// 敵を配置
+		//	EnemySlime* slime = new EnemySlime();
+		//	slime->SetPosition(hit.position);
+		//	slime->SetTerritory(hit.position, 10.0f);
+		//	EnemyManager::Instance().Register(slime);
+		//}
 	}
 
 

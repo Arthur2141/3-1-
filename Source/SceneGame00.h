@@ -34,7 +34,7 @@ public:
 	// シャドーマップ描画
 	void RenderShadow();
 	void RenderReflect();//追加
-
+	void UpdateEffect(float elapsedTime);
 
 	// エネミーHPゲージ描画
 	void RenderEnemyGauge(
@@ -57,11 +57,48 @@ public:
 
 
 private:
+
+	struct particledata
+	{
+		DirectX::XMFLOAT3 dir;
+		DirectX::XMFLOAT3 particlePos;
+		Effekseer::Handle handle;
+		Model* model = nullptr;
+		float velocityX;
+		float velocityY;
+		float velocityZ;
+		float lifeTime;
+		bool stuck=false;
+
+		// 比較演算子の定義
+		bool operator==(const particledata& other) const {
+			return (dir.x == other.dir.x &&
+				dir.y == other.dir.y &&
+				dir.z == other.dir.z &&
+				particlePos.x == other.particlePos.x &&
+				particlePos.y == other.particlePos.y &&
+				particlePos.z == other.particlePos.z &&
+				handle == other.handle &&
+				velocityX == other.velocityX &&
+				velocityY == other.velocityY &&
+				velocityZ == other.velocityZ);
+		}
+
+		// '<' 演算子の定義
+		bool operator<(const particledata& other) const {
+			// 例として handle を基準に比較する
+			return handle < other.handle;
+		}
+	};
+
 	Player*				player = nullptr;
 	CameraController*	cameraController = nullptr;
 	Sprite*				gauge = nullptr;
 
 	std::unique_ptr<WaterSurface> waterSurface = nullptr;
+
+	std::vector<particledata> particledatas;
+	std::set<particledata> removes;
 
 	float timer = 0;
 
