@@ -159,6 +159,7 @@
     <ClInclude Include="Source\Logger.h" />
     <ClInclude Include="Source\Mathf.h" />
     <ClInclude Include="Source\Misc.h" />
+    <ClInclude Include="Source\Oven.h" />
     <ClInclude Include="Source\ParticleSystem.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Projectile.h" />
@@ -236,6 +237,7 @@
     <ClCompile Include="Source\Logger.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Mathf.cpp" />
+    <ClCompile Include="Source\Oven.cpp" />
     <ClCompile Include="Source\ParticleSystem.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Projectile.cpp" />

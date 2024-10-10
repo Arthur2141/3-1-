@@ -325,6 +325,9 @@
       <Filter>Source\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Source\ProjectileSauce.h" />
+    <ClInclude Include="Source\Oven.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\imgui\imgui.cpp">
@@ -541,6 +544,9 @@
       <Filter>Source\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Source\ProjectileSauce.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Oven.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
