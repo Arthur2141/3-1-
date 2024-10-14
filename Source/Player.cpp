@@ -387,6 +387,11 @@ DirectX::XMFLOAT3 Player::GetShootVec() const
 	return vec;
 }
 
+void Player::Moveturn(DirectX::XMFLOAT3 vec, float elapsedtime)
+{
+	angle.x += 3*vec.z*elapsedtime;
+}
+
 
 
 // 移動入力処理
@@ -394,13 +399,15 @@ bool Player::InputMove(float elapsedTime)
 {
 	// 進行ベクトル取得
 	DirectX::XMFLOAT3 moveVec = GetMoveVec();
-
+	if (moveVec.z == 0)
+	{
+		moveVec.x = 0;
+	}
 	// 移動処理
-	Move(moveVec.x, moveVec.z, moveSpeed);
-
+	Move(0, moveVec.z, moveSpeed);
+	Moveturn(moveVec, elapsedTime);
 	// 旋回処理
-	Turn(elapsedTime, moveVec.x, moveVec.z, turnSpeed);
-
+		Turn(elapsedTime, moveVec.x, moveVec.z, turnSpeed / 5);
 	// 進行ベクトルがゼロベクトルでない場合は入力された
 	return moveVec.x != 0.0f || moveVec.y != 0.0f || moveVec.z != 0.0f;
 }

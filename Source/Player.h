@@ -45,7 +45,8 @@ private:
 
 	// スティック入力値から射撃ベクトルを取得
 	DirectX::XMFLOAT3 GetShootVec() const;
-
+	//回転処理
+	void Moveturn(DirectX::XMFLOAT3 vec,float elapsedtime);
 	// 移動入力処理
 	bool InputMove(float elapsedTime);
 	// 射撃移動入力処理

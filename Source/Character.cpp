@@ -94,12 +94,18 @@ void Character::AddImpulse(const DirectX::XMFLOAT3& impulse)
 // 移動処理
 void Character::Move(float vx, float vz, float speed)
 {
+	float an = angle.y;
 	// 移動方向ベクトルを設定
-	moveVecX = vx;
+	if (vz < 0)
+	{
+		an = -an;
+	}
+	moveVecX = vz*sinf(an);
 	moveVecZ = vz;
 
 	// 最大速度設定
 	maxMoveSpeed = speed;
+
 }
 
 // 旋回処理
@@ -250,8 +256,9 @@ void Character::UpdateVerticalMove(float elapsedTime)
 		float az = -atan2f(normal.x, normal.y);
 
 		// 線形補完で滑らかに回転する
-		angle.x = Mathf::Lerp(angle.x, ax, 0.2f);
-		angle.z = Mathf::Lerp(angle.z, az, 0.2f);
+		// うまく回らないのでコメント
+		//angle.x = Mathf::Lerp(angle.x, ax, 0.2f);
+		//angle.z = Mathf::Lerp(angle.z, az, 0.2f);
 	}
 }
 
