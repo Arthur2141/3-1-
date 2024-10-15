@@ -395,7 +395,7 @@ void Player::Moveturn(DirectX::XMFLOAT3 vec, float elapsedtime)
 	//angle.z = -angle.y;
 
 
-	float a = 0.7f;
+	float a = 1/sqrtf(2);
 	float r = 2;
 	float y = angle.y;
 	if(y<0)
@@ -407,7 +407,7 @@ void Player::Moveturn(DirectX::XMFLOAT3 vec, float elapsedtime)
 	{
 		//angle.x = 0;
 		angle.x += DirectX::XMConvertToRadians(vec.z);
-
+		//180“x•â³
 		if (y > DirectX::XMConvertToRadians(150) && y < DirectX::XMConvertToRadians(210))
 		{
 			if (angle.z < DirectX::XMConvertToRadians(0))
@@ -433,6 +433,7 @@ void Player::Moveturn(DirectX::XMFLOAT3 vec, float elapsedtime)
 				}
 			}
 		}		
+		//0“x•â³
 		else if (y < DirectX::XMConvertToRadians(30)||y>DirectX::XMConvertToRadians(330))
 		{
 			if (angle.z < DirectX::XMConvertToRadians(0))
@@ -516,6 +517,7 @@ void Player::Moveturn(DirectX::XMFLOAT3 vec, float elapsedtime)
 		{
 			if (angle.x < DirectX::XMConvertToRadians(0))
 			{
+				//180“x”»’è
 				if (angle.x > DirectX::XMConvertToRadians(-180))
 				{
 					angle.x += r / 2 * elapsedtime;
