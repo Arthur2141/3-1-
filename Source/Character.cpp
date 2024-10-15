@@ -95,13 +95,18 @@ void Character::AddImpulse(const DirectX::XMFLOAT3& impulse)
 void Character::Move(float vx, float vz, float speed)
 {
 	float an = angle.y;
+	float an2 = angle.y;
 	// 移動方向ベクトルを設定
 	if (vz < 0)
 	{
+		vz = -vz;
+	}	
+	if (vx < 0)
+	{
 		an = -an;
 	}
-	moveVecX = vz*sinf(an);
-	moveVecZ = vz;
+	moveVecX = vx*sinf(an);
+	moveVecZ = vz*cosf(an2);
 
 	// 最大速度設定
 	maxMoveSpeed = speed;
@@ -146,7 +151,10 @@ void Character::Turn(float elapsedTime, float vx, float vz, float speed)
 	{
 		angle.y -= rot;
 	}
-
+	if (angle.y > DirectX::XMConvertToRadians(360) || angle.y < DirectX::XMConvertToRadians(-360))
+	{
+		angle.y = 0;
+	}
 }
 
 // ジャンプ処理

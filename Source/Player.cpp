@@ -25,7 +25,8 @@ Player::Player()
 	model = new Model("Data/Model/Jammo/Jammo.mdl");
 
 	// モデルが大きいのでスケーリング
-	scale.x = scale.y = scale.z = 0.01f;
+	scale.x = scale.y = scale.z = 0.05f;
+	scale.y = scale.z = 0.005f;
 
 	// 高さ
 	height = 1.5f;
@@ -389,7 +390,182 @@ DirectX::XMFLOAT3 Player::GetShootVec() const
 
 void Player::Moveturn(DirectX::XMFLOAT3 vec, float elapsedtime)
 {
-	angle.x += 3*vec.z*elapsedtime;
+
+	//angle.x += DirectX::XMConvertToRadians(vec.z);
+	//angle.z = -angle.y;
+
+
+	float a = 0.7f;
+	float r = 2;
+	float y = angle.y;
+	if(y<0)
+	{
+		y = -angle.y;
+	}
+	//sin
+	if (sinf(angle.y) < a && sinf(angle.y) > -a)
+	{
+		//angle.x = 0;
+		angle.x += DirectX::XMConvertToRadians(vec.z);
+
+		if (y > DirectX::XMConvertToRadians(150) && y < DirectX::XMConvertToRadians(210))
+		{
+			if (angle.z < DirectX::XMConvertToRadians(0))
+			{
+				if (angle.z > DirectX::XMConvertToRadians(-180))
+				{
+					angle.z += r / 2 * elapsedtime;
+				}				
+				else if (angle.z <= DirectX::XMConvertToRadians(-180))
+				{
+					angle.z -= r / 2 * elapsedtime;
+				}
+			}			
+			if (angle.z > DirectX::XMConvertToRadians(0))
+			{
+				if (angle.z > DirectX::XMConvertToRadians(180))
+				{
+					angle.z += r / 2 * elapsedtime;
+				}
+				else if (angle.z <= DirectX::XMConvertToRadians(180))
+				{
+					angle.z -= r / 2 * elapsedtime;
+				}
+			}
+		}		
+		else if (y < DirectX::XMConvertToRadians(30)||y>DirectX::XMConvertToRadians(330))
+		{
+			if (angle.z < DirectX::XMConvertToRadians(0))
+			{
+				if (angle.z > DirectX::XMConvertToRadians(-180))
+				{
+					angle.z += r / 2 * elapsedtime;
+				}				
+				else if (angle.z <= DirectX::XMConvertToRadians(-180))
+				{
+					angle.z -= r / 2 * elapsedtime;
+				}
+			}			
+			if (angle.z > DirectX::XMConvertToRadians(0))
+			{
+				if (angle.z > DirectX::XMConvertToRadians(180))
+				{
+					angle.z += r / 2 * elapsedtime;
+				}
+				else if (angle.z <= DirectX::XMConvertToRadians(180))
+				{
+					angle.z -= r / 2 * elapsedtime;
+				}
+			}
+		}
+		else if (angle.z != -angle.y)
+		{
+			if (angle.z > -angle.y)
+			{
+				angle.z -= r * elapsedtime;
+				if (-angle.y < DirectX::XMConvertToRadians(-180))
+				{
+					angle.z += r*elapsedtime;
+				}
+			}
+			if (angle.z < -angle.y)
+			{
+				angle.z += r * elapsedtime;
+				if (-angle.y > DirectX::XMConvertToRadians(-180))
+				{
+					angle.z -= r*elapsedtime;
+
+				}
+			}
+		}
+	}
+	//cos
+	if (cosf(angle.y)<a&& cosf(angle.y) > -a)
+	{
+		//angle.z = 0;
+		angle.z += DirectX::XMConvertToRadians(-vec.x);
+
+		// 90度補正
+		if (y > DirectX::XMConvertToRadians(60) && y < DirectX::XMConvertToRadians(120))
+		{
+			if (angle.x < DirectX::XMConvertToRadians(0))
+			{
+				if (angle.x > DirectX::XMConvertToRadians(-180))
+				{
+					angle.x += r / 2 * elapsedtime;
+				}
+				else if (angle.x <= DirectX::XMConvertToRadians(-180))
+				{
+					angle.x -= r / 2 * elapsedtime;
+				}
+			}
+			if (angle.x > DirectX::XMConvertToRadians(0))
+			{
+				if (angle.x > DirectX::XMConvertToRadians(180))
+				{
+					angle.x += r / 2 * elapsedtime;
+				}
+				else if (angle.x <= DirectX::XMConvertToRadians(180))
+				{
+					angle.x -= r / 2 * elapsedtime;
+				}
+			}
+		}		
+		//270度補正
+		else if (y > DirectX::XMConvertToRadians(240) && y < DirectX::XMConvertToRadians(300))
+		{
+			if (angle.x < DirectX::XMConvertToRadians(0))
+			{
+				if (angle.x > DirectX::XMConvertToRadians(-180))
+				{
+					angle.x += r / 2 * elapsedtime;
+				}
+				else if (angle.x <= DirectX::XMConvertToRadians(-180))
+				{
+					angle.x -= r / 2 * elapsedtime;
+				}
+			}
+			if (angle.x > DirectX::XMConvertToRadians(0))
+			{
+				if (angle.x > DirectX::XMConvertToRadians(180))
+				{
+					angle.x += r / 2 * elapsedtime;
+				}
+				else if (angle.x <= DirectX::XMConvertToRadians(180))
+				{
+					angle.x -= r / 2 * elapsedtime;
+				}
+			}
+		}
+		//angley補正
+		else if (angle.x != angle.y)
+		{
+			if (angle.x > angle.y)
+			{
+				angle.x -= r * elapsedtime;
+				if (angle.y < DirectX::XMConvertToRadians(180))
+				{
+					angle.z += r * elapsedtime;
+				}
+			}			
+			if (angle.x < angle.y)
+			{
+				angle.x += r * elapsedtime;
+				if (angle.y > DirectX::XMConvertToRadians(180))
+				{
+					angle.z -= r * elapsedtime;
+				}
+			}
+		}
+	}	
+	if (angle.x > DirectX::XMConvertToRadians(360)|| angle.x < DirectX::XMConvertToRadians(-360))
+	{
+		angle.x = 0;
+	}			
+	if (angle.z > DirectX::XMConvertToRadians(360)|| angle.z < DirectX::XMConvertToRadians(-360))
+	{
+		angle.z = 0;
+	}	
 }
 
 
@@ -399,15 +575,12 @@ bool Player::InputMove(float elapsedTime)
 {
 	// 進行ベクトル取得
 	DirectX::XMFLOAT3 moveVec = GetMoveVec();
-	if (moveVec.z == 0)
-	{
-		moveVec.x = 0;
-	}
 	// 移動処理
-	Move(0, moveVec.z, moveSpeed);
+	Move(moveVec.x, moveVec.z, moveSpeed);
+	//angle.xを回転
 	Moveturn(moveVec, elapsedTime);
 	// 旋回処理
-		Turn(elapsedTime, moveVec.x, moveVec.z, turnSpeed / 5);
+	Turn(elapsedTime, moveVec.x, moveVec.z, turnSpeed / 5);
 	// 進行ベクトルがゼロベクトルでない場合は入力された
 	return moveVec.x != 0.0f || moveVec.y != 0.0f || moveVec.z != 0.0f;
 }
