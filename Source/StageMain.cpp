@@ -4,7 +4,7 @@
 StageMain::StageMain()
 {
 	// ステージモデルを読み込み
-	model = new Model("Data/Model/ExampleStage/ExampleStage2.mdl");
+	model = new Model("Data/Model/Room/room.mdl");
 }
 
 // デストラクタ	
@@ -18,6 +18,7 @@ StageMain::~StageMain()
 void StageMain::Update(float elapsedTime)
 {
 	// 今は特にやることはない
+	
 }
 
 // 描画処理

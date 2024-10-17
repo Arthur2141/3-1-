@@ -78,7 +78,7 @@ void SceneGame00::Initialize()
 	//skybox = std::make_unique<SkyBox>("Data/SkyBox/beautiful_sky.jpg");
 
 
-	waterSurface = std::make_unique<WaterSurface>();
+	//waterSurface = std::make_unique<WaterSurface>();
 	
 	// ゲージスプライト
 	gauge = new Sprite();
@@ -127,7 +127,7 @@ void SceneGame00::Update(float elapsedTime)
 
 	// ステージ更新処理
 	StageManager::Instance().Update(elapsedTime);
-	waterSurface->Update(elapsedTime);
+	//waterSurface->Update(elapsedTime);
 	//timer += elapsedTime;
 
 	// プレイヤー更新処理
@@ -256,7 +256,7 @@ void SceneGame00::UpdateEffect(float elapsedTime)
 		particlePosVec = playerPosVec;
 
 		DirectX::XMStoreFloat3(&particleData.particlePos, particlePosVec);
-
+		
 		particleData.lifeTime = 10.0f;
 		particleData.model = new Model("Data/Model/Sword/Sword.mdl");
 		particledatas.emplace_back(particleData);
@@ -504,7 +504,7 @@ void SceneGame00::Render()
 		shader->Begin(dc, rc);
 
 		// 水面描画
-		waterSurface->Render(dc, shader);
+		//waterSurface->Render(dc, shader);
 		RenderEnemyGauge(dc, rc.view, rc.projection);
 		
 		shader->End(dc);
@@ -547,11 +547,11 @@ void SceneGame00::Render()
 		if (ImGui::Begin("Debug Menu", nullptr, ImGuiWindowFlags_None))
 		{
 			player->DrawDebugGUI();
-			for (auto& e : particledatas)
+			/*for (auto& e : particledatas)
 			{
 				if (e.lifeTime > 0);
 				ImGui::InputFloat3("particle", &e.particlePos.x);
-			}
+			}*/
 		}
 		ImGui::SetNextWindowPos(ImVec2(10, 200), ImGuiCond_FirstUseEver);
 			ImGui::SetNextWindowSize(ImVec2(300, 300), ImGuiCond_FirstUseEver);

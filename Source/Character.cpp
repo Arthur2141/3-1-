@@ -247,14 +247,14 @@ void Character::UpdateVerticalMove(float elapsedTime)
 		{
 			// ‹ó’†‚É•‚‚¢‚Ä‚¢‚é
 			position.y += my;
-			isGround = false;
+			//isGround = false;
 		}
 	}
 	// ã¸’†
 	else if (my > 0.0f)
 	{
 		position.y += my;
-		isGround = false;
+		//isGround = false;
 	}
 
 	// ’n–Ê‚ÌŒü‚«‚É‰ˆ‚¤‚æ‚¤‚ÉXZŽ²‰ñ“]
@@ -281,7 +281,7 @@ void Character::UpdateHorizontalVelocity(float elapsedFrame)
 		float friction = this->friction * elapsedFrame;
 
 		// ‹ó’†‚É‚¢‚é‚Æ‚«‚Í–€ŽC—Í‚ðŒ¸‚ç‚·
-		if (!isGround) friction *= airControl;
+		//if (!isGround) friction *= airControl;
 
 		// –€ŽC‚É‚æ‚é‰¡•ûŒü‚ÌŒ¸‘¬ˆ—
 		if (length > friction)
@@ -312,7 +312,7 @@ void Character::UpdateHorizontalVelocity(float elapsedFrame)
 			float acceleration = this->acceleration * elapsedFrame;
 
 			// ‹ó’†‚É‚¢‚é‚Æ‚«‚Í‰Á‘¬—Í‚ðŒ¸‚ç‚·
-			if (!isGround) acceleration *= airControl;
+			//if (!isGround) acceleration *= airControl;
 
 			// ˆÚ“®ƒxƒNƒgƒ‹‚É‚æ‚é‰Á‘¬ˆ—
 			velocity.x += moveVecX * acceleration;
@@ -330,9 +330,9 @@ void Character::UpdateHorizontalVelocity(float elapsedFrame)
 			}
 
 			// ‰º‚èâ‚ÅƒKƒ^ƒKƒ^‚µ‚È‚¢‚æ‚¤‚É‚·‚é
-			if (isGround && slopeRate > 0.0f)
+			if (1 && slopeRate > 0.0f)
 			{
-				velocity.y -= length * slopeRate * elapsedFrame;
+				//velocity.y -= length * slopeRate * elapsedFrame;
 			}
 		}
 	}

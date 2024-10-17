@@ -136,7 +136,7 @@ void Player::Update(float elapsedTime)
 	//UpdateTransform();
 
 	// モデルアニメーション更新処理
-	model->UpdateAnimation(elapsedTime);
+	//model->UpdateAnimation(elapsedTime);
 
 	// モデル行列更新
 	model->UpdateTransform(transform);
@@ -923,7 +923,7 @@ void Player::TransitionIdleState()
 	state = State::Idle;
 
 	// 待機アニメーション再生
-	model->PlayAnimation(Anim_Idle, true);
+//	model->PlayAnimation(Anim_Idle, true);
 }
 
 // 待機ステート更新処理
@@ -968,7 +968,7 @@ void Player::TransitionMoveState()
 	state = State::Move;
 
 	// 走りアニメーション再生
-	model->PlayAnimation(Anim_Running, true);
+	//model->PlayAnimation(Anim_Running, true);
 }
 
 // 移動ステート更新処理
@@ -1020,8 +1020,8 @@ void Player::UpdateShootState(float elapsedTime)
 	}
 
 
-	// ダメージアニメーションが終わって
-	if (!model->IsPlayAnimation())
+	/// ダメージアニメーションが終わって
+	//if (!model->IsPlayAnimation())
 	{	//　Pキーで待機ステートへ遷移
 		if (::GetAsyncKeyState('P') & 1) 
 		{
@@ -1039,7 +1039,7 @@ void Player::TransitionJumpState()
 	state = State::Jump;
 
 	// ジャンプアニメーション再生
-	model->PlayAnimation(Anim_Jump, false);
+	//model->PlayAnimation(Anim_Jump, false);
 }
 
 // ジャンプステート更新処理
@@ -1052,14 +1052,14 @@ void Player::UpdateJumpState(float elapsedTime)
 	if (InputJump())
 	{
 		// ジャンプフリップアニメーション再生
-		model->PlayAnimation(Anim_Jump_Flip, false);
+		//model->PlayAnimation(Anim_Jump_Flip, false);
 	}
 	// ジャンプアニメーション終了後
-	if (!model->IsPlayAnimation())
-	{
-		// 落下アニメーション再生
-		model->PlayAnimation(Anim_Falling, true);
-	}
+	//if (!model->IsPlayAnimation())
+	//{
+	//	// 落下アニメーション再生
+	//	model->PlayAnimation(Anim_Falling, true);
+	//}
 
 	// 弾丸入力処理
 	InputProjectile();
@@ -1071,18 +1071,18 @@ void Player::TransitionLandState()
 	state = State::Land;
 
 	// 着地アニメーション再生
-	model->PlayAnimation(Anim_Landing, false);
+	//model->PlayAnimation(Anim_Landing, false);
 }
 
 // 着地ステート更新処理
 void Player::UpdateLandState(float elapsedTime)
 {
 	// 着地アニメーション終了後
-	if (!model->IsPlayAnimation())
-	{
-		// 待機ステートへ遷移
-		TransitionIdleState();
-	}
+	//if (!model->IsPlayAnimation())
+	//{
+	//	// 待機ステートへ遷移
+	//	TransitionIdleState();
+	//}
 }
 
 // 攻撃ステートへ遷移
@@ -1091,7 +1091,7 @@ void Player::TransitionAttackState()
 	state = State::Attack;
 
 	// 攻撃アニメーション再生
-	model->PlayAnimation(Anim_Attack, false);
+	//model->PlayAnimation(Anim_Attack, false);
 }
 
 // 攻撃ステートへ遷移
@@ -1100,7 +1100,7 @@ void Player::TransitionShootState()
 	state = State::Shoot;
 
 	// 攻撃アニメーション再生
-	model->PlayAnimation(Anim_GetHit2, false);
+	//model->PlayAnimation(Anim_GetHit2, false);
 }
 
 
@@ -1108,11 +1108,11 @@ void Player::TransitionShootState()
 void Player::UpdateAttackState(float elapsedTime)
 {
 	// 攻撃アニメーション終了後
-	if (!model->IsPlayAnimation())
-	{
-		// 待機ステートへ遷移
-		TransitionIdleState();
-	}
+	//if (!model->IsPlayAnimation())
+	//{
+	//	// 待機ステートへ遷移
+	//	TransitionIdleState();
+	//}
 
 	// 任意のアニメーション再生区間でのみ衝突判定処理をする
 	float animationTime = model->GetCurrentAnimationSeconds();
@@ -1130,17 +1130,17 @@ void Player::TransitionDamageState()
 	state = State::Damage;
 
 	// ダメージアニメーション再生
-	model->PlayAnimation(Anim_GetHit1, false);
+	//model->PlayAnimation(Anim_GetHit1, false);
 }
 
 // ダメージステート更新処理
 void Player::UpdateDamageState(float elapsedTime)
 {
 	// ダメージアニメーションが終わったら待機ステートへ遷移
-	if (!model->IsPlayAnimation())
+	/*if (!model->IsPlayAnimation())
 	{
 		TransitionIdleState();
-	}
+	}*/
 }
 
 // 死亡ステートへ遷移
@@ -1149,21 +1149,21 @@ void Player::TransitionDeathState()
 	state = State::Death;
 
 	// 死亡アニメーション再生
-	model->PlayAnimation(Anim_Death, false);
+	//model->PlayAnimation(Anim_Death, false);
 }
 
 // 死亡ステート更新処理
 void Player::UpdateDeathState(float elapsedTime)
 {
-	if (!model->IsPlayAnimation())
-	{
-		// ボタンを押したら復活ステートへ遷移
-		GamePad& gamePad = Input::Instance().GetGamePad();
-		if (gamePad.GetButtonDown() & GamePad::BTN_A)
-		{
-			TransitionReviveState();
-		}
-	}
+	//if (!model->IsPlayAnimation())
+	//{
+	//	// ボタンを押したら復活ステートへ遷移
+	//	GamePad& gamePad = Input::Instance().GetGamePad();
+	//	if (gamePad.GetButtonDown() & GamePad::BTN_A)
+	//	{
+	//		TransitionReviveState();
+	//	}
+	//}
 }
 
 // 復活ステートへ遷移
@@ -1175,16 +1175,16 @@ void Player::TransitionReviveState()
 	health = maxHealth;
 
 	// 復活アニメーション再生
-	model->PlayAnimation(Anim_Revive, false);
+	//model->PlayAnimation(Anim_Revive, false);
 }
 
 // 復活ステート更新処理
 void Player::UpdateReviveState(float elapsedTime)
 {
 	// 復活アニメーション終了後に待機ステートへ遷移
-	if (!model->IsPlayAnimation())
+	/*if (!model->IsPlayAnimation())
 	{
 		TransitionIdleState();
-	}
+	}*/
 }
 
