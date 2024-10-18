@@ -22,11 +22,11 @@ Player::Player()
 	// インスタンスポインタ設定
 	instance = this;
 
-	model = new Model("Data/Model/Jammo/Jammo.mdl");
+	//model = new Model("Data/Model/Jammo/Jammo.mdl");
+	model = new Model("Data/Model/sausage/sausage.mdl");
 
 	// モデルが大きいのでスケーリング
-	scale.x = scale.y = scale.z = 0.05f;
-	scale.y = scale.z = 0.005f;
+	scale.x = scale.y = scale.z = 0.1f;
 
 	// 高さ
 	height = 1.5f;
@@ -432,7 +432,7 @@ void Player::Moveturn(DirectX::XMFLOAT3 vec, float elapsedtime)
 					angle.z -= r / 2 * elapsedtime;
 				}
 			}
-		}		
+		}			
 		//0度補正
 		else if (y < DirectX::XMConvertToRadians(30)||y>DirectX::XMConvertToRadians(330))
 		{
@@ -547,7 +547,7 @@ void Player::Moveturn(DirectX::XMFLOAT3 vec, float elapsedtime)
 				angle.x -= r * elapsedtime;
 				if (angle.y < DirectX::XMConvertToRadians(180))
 				{
-					angle.z += r * elapsedtime;
+					angle.x += r * elapsedtime;
 				}
 			}			
 			if (angle.x < angle.y)
@@ -555,7 +555,7 @@ void Player::Moveturn(DirectX::XMFLOAT3 vec, float elapsedtime)
 				angle.x += r * elapsedtime;
 				if (angle.y > DirectX::XMConvertToRadians(180))
 				{
-					angle.z -= r * elapsedtime;
+					angle.x -= r * elapsedtime;
 				}
 			}
 		}
