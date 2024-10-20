@@ -2,6 +2,7 @@
 
 #include "SceneManager.h"
 #include "SceneLoading.h"
+#include "Scenesousa.h"
 #include "SceneGame00.h"
 #include "SceneGame01.h"
 #include "SceneGame02.h"
@@ -70,6 +71,11 @@ void SceneManager::imGuiSceneChanger()
 {
 	ImGui::Begin(u8"シーン変更");
 	if (ImGui::Button(u8"初期シーン"))
+	{
+		ChangeScene(new SceneLoading(new Scenesousa));
+
+	}
+	if (ImGui::Button(u8"操作説明"))
 	{
 		ChangeScene(new SceneLoading(new SceneGame00));
 	}

@@ -1,5 +1,4 @@
 #include "Graphics/Graphics.h"
-#include "SceneTitle.h"
 #include "Scenesousa.h"
 #include "SceneGame00.h"
 #include "SceneLoading.h"
@@ -7,14 +6,14 @@
 #include "Input/Input.h"
 
 // 初期化
-void SceneTitle::Initialize()
+void Scenesousa::Initialize()
 {
 	// スプライト初期化
-	sprite = new Sprite("Data/Sprite/Title.png");
+	sprite = new Sprite("Data/Sprite/sousa.png");
 }
 
 // 終了化
-void SceneTitle::Finalize()
+void Scenesousa::Finalize()
 {
 	// スプライト終了化
 	if (sprite != nullptr)
@@ -25,25 +24,25 @@ void SceneTitle::Finalize()
 }
 
 // 更新処理
-void SceneTitle::Update(float elapsedTime)
+void Scenesousa::Update(float elapsedTime)
 {
 	GamePad& gamePad = Input::Instance().GetGamePad();
 
 	// なにかボタンを押したらローディングシーンへ切り替え
 	const GamePadButton anyButton =
-		  GamePad::BTN_A
+		GamePad::BTN_A
 		| GamePad::BTN_B
 		| GamePad::BTN_X
 		| GamePad::BTN_Y
 		;
 	if (gamePad.GetButtonDown() & anyButton)
 	{
-		SceneManager::Instance().ChangeScene(new SceneLoading(new Scenesousa));
+		SceneManager::Instance().ChangeScene(new SceneLoading(new SceneGame00));
 	}
 }
 
 // 描画処理
-void SceneTitle::Render()
+void Scenesousa::Render()
 {
 	Graphics& graphics = Graphics::Instance();
 	ID3D11DeviceContext* dc = graphics.GetDeviceContext();
