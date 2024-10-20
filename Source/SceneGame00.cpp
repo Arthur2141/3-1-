@@ -30,7 +30,7 @@ void SceneGame00::Initialize()
 
 	// プレイヤー
 	player = new Player();
-
+	flypan = std::make_unique<Flypan>();
 	// カメラ初期設定
 	Graphics& graphics = Graphics::Instance();
 	Camera& camera = Camera::Instance();
@@ -58,6 +58,8 @@ void SceneGame00::Initialize()
 		slime->SetTerritory(slime->GetPosition(), 10.0f);
 		enemyManager.Register(slime);
 	}
+	flypan->SetPosition({8,-2,0});
+	flypan->SetScale({ 0.5f,0.5f,0.5f });
 	// フレームバッファ
 	//shadowMap = std::make_unique<FrameBuffer>(SHADOW_SIZE.x, SHADOW_SIZE.y, 6,DXGI_FORMAT_R32G32_FLOAT);
 	//reflectMap = std::make_unique<FrameBuffer>
@@ -109,7 +111,7 @@ void SceneGame00::Finalize()
 	{
 		delete player;
 		player = nullptr;
-	}
+	}	
 
 	// ステージ終了化
 	StageManager::Instance().Clear();
@@ -132,7 +134,11 @@ void SceneGame00::Update(float elapsedTime)
 
 	// プレイヤー更新処理
 	player->Update(elapsedTime);
-
+	flypan->Update(elapsedTime);
+	if (flypan->Goal(player))
+	{
+		SceneManager::Instance().ChangeScene(new SceneLoading(new SceneGame01));
+	}
 	////  空
 	//sky->Update(elapsedTime);
 	// エネミー更新処理
@@ -485,7 +491,7 @@ void SceneGame00::Render()
 
 		// プレイヤー描画
 		player->Render(dc, shader);
-
+		flypan->Render(dc, shader);
 		for (auto& e : particledatas)
 		{
 			debugRend->DrawSphere(e.particlePos, 10, { 1,1,1,1 });

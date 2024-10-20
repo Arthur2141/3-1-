@@ -11,7 +11,7 @@
 #include "WaterSurface.h"
 
 #include "Graphics/SkyBox.h"
-
+#include"flypan.h"
 
 // ÉQÅ[ÉÄÉVÅ[Éì
 class SceneGame00 : public Scene
@@ -94,7 +94,7 @@ private:
 	Player*				player = nullptr;
 	CameraController*	cameraController = nullptr;
 	Sprite*				gauge = nullptr;
-
+	std::unique_ptr<Flypan> flypan = nullptr;
 	std::unique_ptr<WaterSurface> waterSurface = nullptr;
 
 	std::vector<particledata> particledatas;
