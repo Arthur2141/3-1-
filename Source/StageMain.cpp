@@ -5,6 +5,7 @@ StageMain::StageMain()
 {
 	// ステージモデルを読み込み
 	model = new Model("Data/Model/Room/room.mdl");
+	
 }
 
 // デストラクタ	

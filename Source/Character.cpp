@@ -167,22 +167,30 @@ void Character::Jump(float speed)
 // 速力処理更新
 void Character::UpdateVelocity(float elapsedTime)
 {
-	// 経過フレーム
-	float elapsedFrame = 60.0f * elapsedTime;
+	if (notMoving)
+	{
 
-	// 垂直速力更新処理
-	UpdateVerticalVelocity(elapsedFrame);
+	}
+	else
+	{
 
-	// 水平速力更新処理
-	UpdateHorizontalVelocity(elapsedFrame);
 
-	// 垂直移動更新処理
-	UpdateVerticalMove(elapsedTime);
+		//経過フレーム
+		float elapsedFrame = 60.0f * elapsedTime;
 
-	// 水平移動更新処理
-	UpdateHorizontalMove(elapsedTime);
+		// 垂直速力更新処理
+		UpdateVerticalVelocity(elapsedFrame);
+
+		// 水平速力更新処理
+		UpdateHorizontalVelocity(elapsedFrame);
+
+		// 垂直移動更新処理
+		UpdateVerticalMove(elapsedTime);
+
+		// 水平移動更新処理
+		UpdateHorizontalMove(elapsedTime);
+	}
 }
-
 // 無敵時間更新
 void Character::UpdateInvincibleTimer(float elapsedTime)
 {
@@ -196,7 +204,14 @@ void Character::UpdateInvincibleTimer(float elapsedTime)
 void Character::UpdateVerticalVelocity(float elapsedFrame)
 {
 	// 重力処理
-	velocity.y += gravity * elapsedFrame;
+	if (notMoving)
+	{
+
+	}
+	else 
+	{
+		velocity.y += gravity * elapsedFrame;
+	}
 }
 
 // 垂直移動更新処理

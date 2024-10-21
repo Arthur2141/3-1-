@@ -50,6 +50,7 @@ Player::~Player()
 // 更新処理
 void Player::Update(float elapsedTime)
 {
+	
 	// ステート毎の処理
 	switch (state)
 	{
@@ -117,21 +118,29 @@ void Player::Update(float elapsedTime)
 		break;
 	}
 
-	// 速力更新処理
-	UpdateVelocity(elapsedTime);
+	
+	if (notMoving)
+	{
 
-	// 無敵時間更新
-	UpdateInvincibleTimer(elapsedTime);
+	}
+	else
+	{
 
-	// 弾丸更新処理
-	projectileManager.Update(elapsedTime);
+		// 速力更新処理
+		UpdateVelocity(elapsedTime);
 
-	// プレイヤーと敵との衝突処理
-	CollisionPlayerVsEnemies();
+		// 無敵時間更新
+		UpdateInvincibleTimer(elapsedTime);
 
-	// 弾丸と敵との衝突処理
-	CollisionProjectilesVsEnemies();
+		// 弾丸更新処理
+		projectileManager.Update(elapsedTime);
 
+		// プレイヤーと敵との衝突処理
+		CollisionPlayerVsEnemies();
+
+		// 弾丸と敵との衝突処理
+		CollisionProjectilesVsEnemies();
+	}
 	//// オブジェクト行列を更新
 	//UpdateTransform();
 
@@ -308,50 +317,57 @@ void Player::TurnXYZ(float elapsedTime, float vx, float vy, float vz, float spee
 // スティック入力値から移動ベクトルを取得
 DirectX::XMFLOAT3 Player::GetMoveVec() const
 {
-	// 入力情報を取得
-	GamePad& gamePad = Input::Instance().GetGamePad();
-	float ax = gamePad.GetAxisLX();
-	float ay = gamePad.GetAxisLY();
-
-	// カメラ方向とスティックの入力値によって進行方向を計算する
-	Camera& camera = Camera::Instance();
-	const DirectX::XMFLOAT3& cameraRight = camera.GetRight();
-	const DirectX::XMFLOAT3& cameraFront = camera.GetFront();
-
-	// 移動ベクトルはXZ平面に水平なベクトルなるようにする
-
-	// カメラ右方向ベクトルをXZ単位ベクトルに変換
-	float cameraRightX = cameraRight.x;
-	float cameraRightZ = cameraRight.z;
-	float cameraRightLength = sqrtf(cameraRightX * cameraRightX + cameraRightZ * cameraRightZ);
-	if (cameraRightLength > 0.0f)
+	if (notMoving)
 	{
-		// 単位ベクトル化
-		cameraRightX /= cameraRightLength;
-		cameraRightZ /= cameraRightLength;
-	}
 
-	// カメラ前方向ベクトルをXZ単位ベクトルに変換
-	float cameraFrontX = cameraFront.x;
-	float cameraFrontZ = cameraFront.z;
-	float cameraFrontLength = sqrtf(cameraFrontX * cameraFrontX + cameraFrontZ * cameraFrontZ);
-	if (cameraFrontLength > 0.0f)
+	}
+	else
 	{
-		// 単位ベクトル化
-		cameraFrontX /= cameraFrontLength;
-		cameraFrontZ /= cameraFrontLength;
+		// 入力情報を取得
+		GamePad& gamePad = Input::Instance().GetGamePad();
+		float ax = gamePad.GetAxisLX();
+		float ay = gamePad.GetAxisLY();
+
+		// カメラ方向とスティックの入力値によって進行方向を計算する
+		Camera& camera = Camera::Instance();
+		const DirectX::XMFLOAT3& cameraRight = camera.GetRight();
+		const DirectX::XMFLOAT3& cameraFront = camera.GetFront();
+
+		// 移動ベクトルはXZ平面に水平なベクトルなるようにする
+
+		// カメラ右方向ベクトルをXZ単位ベクトルに変換
+		float cameraRightX = cameraRight.x;
+		float cameraRightZ = cameraRight.z;
+		float cameraRightLength = sqrtf(cameraRightX * cameraRightX + cameraRightZ * cameraRightZ);
+		if (cameraRightLength > 0.0f)
+		{
+			// 単位ベクトル化
+			cameraRightX /= cameraRightLength;
+			cameraRightZ /= cameraRightLength;
+		}
+
+		// カメラ前方向ベクトルをXZ単位ベクトルに変換
+		float cameraFrontX = cameraFront.x;
+		float cameraFrontZ = cameraFront.z;
+		float cameraFrontLength = sqrtf(cameraFrontX * cameraFrontX + cameraFrontZ * cameraFrontZ);
+		if (cameraFrontLength > 0.0f)
+		{
+			// 単位ベクトル化
+			cameraFrontX /= cameraFrontLength;
+			cameraFrontZ /= cameraFrontLength;
+		}
+
+		// スティックの水平入力値をカメラ右方向に反映し、
+		// スティックの垂直入力値をカメラ前方向に反映し、
+		// 進行ベクトルを計算する
+		DirectX::XMFLOAT3 vec;
+		vec.x = (cameraRightX * ax) + (cameraFrontX * ay);
+		vec.z = (cameraRightZ * ax) + (cameraFrontZ * ay);
+		// Y軸方向には移動しない
+		vec.y = 0.0f;
+
+		return vec;
 	}
-
-	// スティックの水平入力値をカメラ右方向に反映し、
-	// スティックの垂直入力値をカメラ前方向に反映し、
-	// 進行ベクトルを計算する
-	DirectX::XMFLOAT3 vec;
-	vec.x = (cameraRightX * ax) + (cameraFrontX * ay);
-	vec.z = (cameraRightZ * ax) + (cameraFrontZ * ay);
-	// Y軸方向には移動しない
-	vec.y = 0.0f;
-
-	return vec;
 }
 
 // バイオハザード移動
@@ -393,183 +409,188 @@ void Player::Moveturn(DirectX::XMFLOAT3 vec, float elapsedtime)
 
 	//angle.x += DirectX::XMConvertToRadians(vec.z);
 	//angle.z = -angle.y;
-
-
-	float a = 1/sqrtf(2);
-	float r = 2;
-	float y = angle.y;
-	if(y<0)
+	if (notMoving)
 	{
-		y = -angle.y;
+
 	}
-	//sin
-	if (sinf(angle.y) < a && sinf(angle.y) > -a)
+	else
 	{
-		//angle.x = 0;
-		angle.x += DirectX::XMConvertToRadians(vec.z);
-		//180度補正
-		if (y > DirectX::XMConvertToRadians(150) && y < DirectX::XMConvertToRadians(210))
-		{
-			if (angle.z < DirectX::XMConvertToRadians(0))
-			{
-				if (angle.z > DirectX::XMConvertToRadians(-180))
-				{
-					angle.z += r / 2 * elapsedtime;
-				}				
-				else if (angle.z <= DirectX::XMConvertToRadians(-180))
-				{
-					angle.z -= r / 2 * elapsedtime;
-				}
-			}			
-			if (angle.z > DirectX::XMConvertToRadians(0))
-			{
-				if (angle.z > DirectX::XMConvertToRadians(180))
-				{
-					angle.z += r / 2 * elapsedtime;
-				}
-				else if (angle.z <= DirectX::XMConvertToRadians(180))
-				{
-					angle.z -= r / 2 * elapsedtime;
-				}
-			}
-		}			
-		//0度補正
-		else if (y < DirectX::XMConvertToRadians(30)||y>DirectX::XMConvertToRadians(330))
-		{
-			if (angle.z < DirectX::XMConvertToRadians(0))
-			{
-				if (angle.z > DirectX::XMConvertToRadians(-180))
-				{
-					angle.z += r / 2 * elapsedtime;
-				}				
-				else if (angle.z <= DirectX::XMConvertToRadians(-180))
-				{
-					angle.z -= r / 2 * elapsedtime;
-				}
-			}			
-			if (angle.z > DirectX::XMConvertToRadians(0))
-			{
-				if (angle.z > DirectX::XMConvertToRadians(180))
-				{
-					angle.z += r / 2 * elapsedtime;
-				}
-				else if (angle.z <= DirectX::XMConvertToRadians(180))
-				{
-					angle.z -= r / 2 * elapsedtime;
-				}
-			}
-		}
-		else if (angle.z != -angle.y)
-		{
-			if (angle.z > -angle.y)
-			{
-				angle.z -= r * elapsedtime;
-				if (-angle.y < DirectX::XMConvertToRadians(-180))
-				{
-					angle.z += r*elapsedtime;
-				}
-			}
-			if (angle.z < -angle.y)
-			{
-				angle.z += r * elapsedtime;
-				if (-angle.y > DirectX::XMConvertToRadians(-180))
-				{
-					angle.z -= r*elapsedtime;
 
+		float a = 1 / sqrtf(2);
+		float r = 2;
+		float y = angle.y;
+		if (y < 0)
+		{
+			y = -angle.y;
+		}
+		//sin
+		if (sinf(angle.y) < a && sinf(angle.y) > -a)
+		{
+			//angle.x = 0;
+			angle.x += DirectX::XMConvertToRadians(vec.z);
+			//180度補正
+			if (y > DirectX::XMConvertToRadians(150) && y < DirectX::XMConvertToRadians(210))
+			{
+				if (angle.z < DirectX::XMConvertToRadians(0))
+				{
+					if (angle.z > DirectX::XMConvertToRadians(-180))
+					{
+						angle.z += r / 2 * elapsedtime;
+					}
+					else if (angle.z <= DirectX::XMConvertToRadians(-180))
+					{
+						angle.z -= r / 2 * elapsedtime;
+					}
+				}
+				if (angle.z > DirectX::XMConvertToRadians(0))
+				{
+					if (angle.z > DirectX::XMConvertToRadians(180))
+					{
+						angle.z += r / 2 * elapsedtime;
+					}
+					else if (angle.z <= DirectX::XMConvertToRadians(180))
+					{
+						angle.z -= r / 2 * elapsedtime;
+					}
 				}
 			}
-		}
-	}
-	//cos
-	if (cosf(angle.y)<a&& cosf(angle.y) > -a)
-	{
-		//angle.z = 0;
-		angle.z += DirectX::XMConvertToRadians(-vec.x);
+			//0度補正
+			else if (y < DirectX::XMConvertToRadians(30) || y>DirectX::XMConvertToRadians(330))
+			{
+				if (angle.z < DirectX::XMConvertToRadians(0))
+				{
+					if (angle.z > DirectX::XMConvertToRadians(-180))
+					{
+						angle.z += r / 2 * elapsedtime;
+					}
+					else if (angle.z <= DirectX::XMConvertToRadians(-180))
+					{
+						angle.z -= r / 2 * elapsedtime;
+					}
+				}
+				if (angle.z > DirectX::XMConvertToRadians(0))
+				{
+					if (angle.z > DirectX::XMConvertToRadians(180))
+					{
+						angle.z += r / 2 * elapsedtime;
+					}
+					else if (angle.z <= DirectX::XMConvertToRadians(180))
+					{
+						angle.z -= r / 2 * elapsedtime;
+					}
+				}
+			}
+			else if (angle.z != -angle.y)
+			{
+				if (angle.z > -angle.y)
+				{
+					angle.z -= r * elapsedtime;
+					if (-angle.y < DirectX::XMConvertToRadians(-180))
+					{
+						angle.z += r * elapsedtime;
+					}
+				}
+				if (angle.z < -angle.y)
+				{
+					angle.z += r * elapsedtime;
+					if (-angle.y > DirectX::XMConvertToRadians(-180))
+					{
+						angle.z -= r * elapsedtime;
 
-		// 90度補正
-		if (y > DirectX::XMConvertToRadians(60) && y < DirectX::XMConvertToRadians(120))
-		{
-			if (angle.x < DirectX::XMConvertToRadians(0))
-			{
-				if (angle.x > DirectX::XMConvertToRadians(-180))
-				{
-					angle.x += r / 2 * elapsedtime;
-				}
-				else if (angle.x <= DirectX::XMConvertToRadians(-180))
-				{
-					angle.x -= r / 2 * elapsedtime;
-				}
-			}
-			if (angle.x > DirectX::XMConvertToRadians(0))
-			{
-				if (angle.x > DirectX::XMConvertToRadians(180))
-				{
-					angle.x += r / 2 * elapsedtime;
-				}
-				else if (angle.x <= DirectX::XMConvertToRadians(180))
-				{
-					angle.x -= r / 2 * elapsedtime;
-				}
-			}
-		}		
-		//270度補正
-		else if (y > DirectX::XMConvertToRadians(240) && y < DirectX::XMConvertToRadians(300))
-		{
-			if (angle.x < DirectX::XMConvertToRadians(0))
-			{
-				//180度判定
-				if (angle.x > DirectX::XMConvertToRadians(-180))
-				{
-					angle.x += r / 2 * elapsedtime;
-				}
-				else if (angle.x <= DirectX::XMConvertToRadians(-180))
-				{
-					angle.x -= r / 2 * elapsedtime;
-				}
-			}
-			if (angle.x > DirectX::XMConvertToRadians(0))
-			{
-				if (angle.x > DirectX::XMConvertToRadians(180))
-				{
-					angle.x += r / 2 * elapsedtime;
-				}
-				else if (angle.x <= DirectX::XMConvertToRadians(180))
-				{
-					angle.x -= r / 2 * elapsedtime;
+					}
 				}
 			}
 		}
-		//angley補正
-		else if (angle.x != angle.y)
+		//cos
+		if (cosf(angle.y) < a && cosf(angle.y) > -a)
 		{
-			if (angle.x > angle.y)
+			//angle.z = 0;
+			angle.z += DirectX::XMConvertToRadians(-vec.x);
+
+			// 90度補正
+			if (y > DirectX::XMConvertToRadians(60) && y < DirectX::XMConvertToRadians(120))
 			{
-				angle.x -= r * elapsedtime;
-				if (angle.y < DirectX::XMConvertToRadians(180))
+				if (angle.x < DirectX::XMConvertToRadians(0))
 				{
-					angle.x += r * elapsedtime;
+					if (angle.x > DirectX::XMConvertToRadians(-180))
+					{
+						angle.x += r / 2 * elapsedtime;
+					}
+					else if (angle.x <= DirectX::XMConvertToRadians(-180))
+					{
+						angle.x -= r / 2 * elapsedtime;
+					}
 				}
-			}			
-			if (angle.x < angle.y)
+				if (angle.x > DirectX::XMConvertToRadians(0))
+				{
+					if (angle.x > DirectX::XMConvertToRadians(180))
+					{
+						angle.x += r / 2 * elapsedtime;
+					}
+					else if (angle.x <= DirectX::XMConvertToRadians(180))
+					{
+						angle.x -= r / 2 * elapsedtime;
+					}
+				}
+			}
+			//270度補正
+			else if (y > DirectX::XMConvertToRadians(240) && y < DirectX::XMConvertToRadians(300))
 			{
-				angle.x += r * elapsedtime;
-				if (angle.y > DirectX::XMConvertToRadians(180))
+				if (angle.x < DirectX::XMConvertToRadians(0))
+				{
+					//180度判定
+					if (angle.x > DirectX::XMConvertToRadians(-180))
+					{
+						angle.x += r / 2 * elapsedtime;
+					}
+					else if (angle.x <= DirectX::XMConvertToRadians(-180))
+					{
+						angle.x -= r / 2 * elapsedtime;
+					}
+				}
+				if (angle.x > DirectX::XMConvertToRadians(0))
+				{
+					if (angle.x > DirectX::XMConvertToRadians(180))
+					{
+						angle.x += r / 2 * elapsedtime;
+					}
+					else if (angle.x <= DirectX::XMConvertToRadians(180))
+					{
+						angle.x -= r / 2 * elapsedtime;
+					}
+				}
+			}
+			//angley補正
+			else if (angle.x != angle.y)
+			{
+				if (angle.x > angle.y)
 				{
 					angle.x -= r * elapsedtime;
+					if (angle.y < DirectX::XMConvertToRadians(180))
+					{
+						angle.x += r * elapsedtime;
+					}
+				}
+				if (angle.x < angle.y)
+				{
+					angle.x += r * elapsedtime;
+					if (angle.y > DirectX::XMConvertToRadians(180))
+					{
+						angle.x -= r * elapsedtime;
+					}
 				}
 			}
 		}
-	}	
-	if (angle.x > DirectX::XMConvertToRadians(360)|| angle.x < DirectX::XMConvertToRadians(-360))
-	{
-		angle.x = 0;
-	}			
-	if (angle.z > DirectX::XMConvertToRadians(360)|| angle.z < DirectX::XMConvertToRadians(-360))
-	{
-		angle.z = 0;
-	}	
+		if (angle.x > DirectX::XMConvertToRadians(360) || angle.x < DirectX::XMConvertToRadians(-360))
+		{
+			angle.x = 0;
+		}
+		if (angle.z > DirectX::XMConvertToRadians(360) || angle.z < DirectX::XMConvertToRadians(-360))
+		{
+			angle.z = 0;
+		}
+	}
 }
-
 
 
 // 移動入力処理
@@ -614,77 +635,77 @@ bool Player::InputProjectile()
 {
 	GamePad& gamePad = Input::Instance().GetGamePad();
 
-	// 直進弾丸発射
-	if (gamePad.GetButtonDown() & GamePad::BTN_X)
-	{
-		// 前方向
-		DirectX::XMFLOAT3 dir;
-		dir.x = sinf(angle.y);
-		dir.y = 0.0f;
-		dir.z = cosf(angle.y);
-		// 発射位置（プレイヤーの腰あたり）
-		DirectX::XMFLOAT3 pos;
-		pos.x = position.x;
-		pos.y = position.y + height * 0.5f;
-		pos.z = position.z;
-		// 発射
-		ProjectileStraite* projectile = new ProjectileStraite(&projectileManager);
-		projectile->Launch(dir, pos);
+	//// 直進弾丸発射
+	//if (gamePad.GetButtonDown() & GamePad::BTN_X)
+	//{
+	//	// 前方向
+	//	DirectX::XMFLOAT3 dir;
+	//	dir.x = sinf(angle.y);
+	//	dir.y = 0.0f;
+	//	dir.z = cosf(angle.y);
+	//	// 発射位置（プレイヤーの腰あたり）
+	//	DirectX::XMFLOAT3 pos;
+	//	pos.x = position.x;
+	//	pos.y = position.y + height * 0.5f;
+	//	pos.z = position.z;
+	//	// 発射
+	//	ProjectileStraite* projectile = new ProjectileStraite(&projectileManager);
+	//	projectile->Launch(dir, pos);
 
-		// 発射入力した
-		return true;
-	}
+	//	// 発射入力した
+	//	return true;
+	//}
 
 	// 追尾弾丸発射
-	if (gamePad.GetButtonDown() & GamePad::BTN_Y)
-	{
-		// 前方向
-		DirectX::XMFLOAT3 dir;
-		dir.x = sinf(angle.y);
-		dir.y = 0.0f;
-		dir.z = cosf(angle.y);
+	//if (gamePad.GetButtonDown() & GamePad::BTN_Y)
+	//{
+	//	// 前方向
+	//	DirectX::XMFLOAT3 dir;
+	//	dir.x = sinf(angle.y);
+	//	dir.y = 0.0f;
+	//	dir.z = cosf(angle.y);
 
-		// 発射位置（プレイヤーの腰あたり）
-		DirectX::XMFLOAT3 pos;
-		pos.x = position.x;
-		pos.y = position.y + height * 0.5f;
-		pos.z = position.z;
+	//	// 発射位置（プレイヤーの腰あたり）
+	//	DirectX::XMFLOAT3 pos;
+	//	pos.x = position.x;
+	//	pos.y = position.y + height * 0.5f;
+	//	pos.z = position.z;
 
-		// ターゲット（デフォルトではプレイヤーの前方）
-		DirectX::XMFLOAT3 target;
-		target.x = pos.x + dir.x * 1000.0f;
-		target.y = pos.y + dir.y * 1000.0f;
-		target.z = pos.z + dir.z * 1000.0f;
+	//	// ターゲット（デフォルトではプレイヤーの前方）
+	//	DirectX::XMFLOAT3 target;
+	//	target.x = pos.x + dir.x * 1000.0f;
+	//	target.y = pos.y + dir.y * 1000.0f;
+	//	target.z = pos.z + dir.z * 1000.0f;
 
-		// 一番近くの敵をターゲットにする
-		float dist = FLT_MAX;
-		EnemyManager& enemyManager = EnemyManager::Instance();
-		int enemyCount = enemyManager.GetEnemyCount();
-		for (int i = 0; i < enemyCount; ++i)
-		{
-			// 敵との距離判定
-			Enemy* enemy = EnemyManager::Instance().GetEnemy(i);
-			DirectX::XMVECTOR P = DirectX::XMLoadFloat3(&position);
-			DirectX::XMVECTOR E = DirectX::XMLoadFloat3(&enemy->GetPosition());
-			DirectX::XMVECTOR V = DirectX::XMVectorSubtract(E, P);
-			DirectX::XMVECTOR D = DirectX::XMVector3LengthSq(V);
-			float d;
-			DirectX::XMStoreFloat(&d, D);
-			if (d < dist)
-			{
-				dist = d;
-				target = enemy->GetPosition();
-				target.y += enemy->GetHeight() * 0.5f;
-			}
-		}
+	//	// 一番近くの敵をターゲットにする
+	//	float dist = FLT_MAX;
+	//	EnemyManager& enemyManager = EnemyManager::Instance();
+	//	int enemyCount = enemyManager.GetEnemyCount();
+	//	for (int i = 0; i < enemyCount; ++i)
+	//	{
+	//		// 敵との距離判定
+	//		Enemy* enemy = EnemyManager::Instance().GetEnemy(i);
+	//		DirectX::XMVECTOR P = DirectX::XMLoadFloat3(&position);
+	//		DirectX::XMVECTOR E = DirectX::XMLoadFloat3(&enemy->GetPosition());
+	//		DirectX::XMVECTOR V = DirectX::XMVectorSubtract(E, P);
+	//		DirectX::XMVECTOR D = DirectX::XMVector3LengthSq(V);
+	//		float d;
+	//		DirectX::XMStoreFloat(&d, D);
+	//		if (d < dist)
+	//		{
+	//			dist = d;
+	//			target = enemy->GetPosition();
+	//			target.y += enemy->GetHeight() * 0.5f;
+	//		}
+	//	}
 
-		// 発射
-		ProjectileHoming* projectile = new ProjectileHoming(&projectileManager);
-		projectile->Launch(dir, pos, target);
+	//	// 発射
+	//	ProjectileHoming* projectile = new ProjectileHoming(&projectileManager);
+	//	projectile->Launch(dir, pos, target);
 
-		// 発射入力した
-		return true;
-	}
+	//	// 発射入力した
+	//	return true;
+	//}
 
 	return false;
 }
@@ -692,12 +713,12 @@ bool Player::InputProjectile()
 // 攻撃入力処理
 bool Player::InputAttack()
 {
-	GamePad& gamePad = Input::Instance().GetGamePad();
+	/*GamePad& gamePad = Input::Instance().GetGamePad();
 
 	if (gamePad.GetButtonDown() & GamePad::BTN_B)
 	{
 		return true;
-	}
+	}*/
 
 	return false;
 }
@@ -1079,10 +1100,10 @@ void Player::UpdateLandState(float elapsedTime)
 {
 	// 着地アニメーション終了後
 	//if (!model->IsPlayAnimation())
-	//{
-	//	// 待機ステートへ遷移
-	//	TransitionIdleState();
-	//}
+	{
+		// 待機ステートへ遷移
+		TransitionIdleState();
+	}
 }
 
 // 攻撃ステートへ遷移

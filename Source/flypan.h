@@ -1,5 +1,6 @@
 #pragma once
 #include"StaticObject.h"
+#include "Player.h"
 #include"Character.h"
 class Flypan :public StaticObject
 {
@@ -15,7 +16,7 @@ public:
 	};
 	void Update(float elapsedTime)override;
 	//ÉèÅ[Évä÷êî
-	bool Goal(Character* c);
+	bool Goal(Player* c);
 private:
 	Character* character = nullptr;
 };

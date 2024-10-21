@@ -30,7 +30,7 @@ void DrawTaskGUI()
 	ImGui::SetNextWindowPos(ImVec2(970, 10), ImGuiCond_Once);
 	ImGui::SetNextWindowSize(ImVec2(300, 150), ImGuiCond_Once);
 
-	if (ImGui::Begin(u8"UNIT.21", nullptr, ImGuiWindowFlags_None))
+	/*if (ImGui::Begin(u8"UNIT.21", nullptr, ImGuiWindowFlags_None))
 	{
 		ImGui::Checkbox(u8"ローディング速度の高速化", &taskResourceManager);
 	}
@@ -49,7 +49,7 @@ void DrawTaskGUI()
 		ImGui::BulletText(u8"追尾弾丸発射：V");
 		ImGui::BulletText(u8"敵配置：マウス左クリック");
 	}
-	ImGui::End();
+	ImGui::End();*/
 }
 
 // コンストラクタ

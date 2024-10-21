@@ -69,7 +69,7 @@ void SceneManager::ChangeScene(Scene* scene)
 
 void SceneManager::imGuiSceneChanger()
 {
-	ImGui::Begin(u8"シーン変更");
+	/*ImGui::Begin(u8"シーン変更");
 	if (ImGui::Button(u8"初期シーン"))
 	{
 		ChangeScene(new SceneLoading(new Scenesousa));
@@ -111,5 +111,5 @@ void SceneManager::imGuiSceneChanger()
 	}
 
 
-	ImGui::End();
+	ImGui::End();*/
 }

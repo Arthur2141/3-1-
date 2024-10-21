@@ -9,6 +9,7 @@
 #include "Sky.h"
 #include "StageWaterSurface.h"
 #include "WaterSurface.h"
+#include "Decoration.h"
 
 #include "Graphics/SkyBox.h"
 #include"flypan.h"
@@ -95,11 +96,10 @@ private:
 	CameraController*	cameraController = nullptr;
 	Sprite*				gauge = nullptr;
 	std::unique_ptr<Flypan> flypan = nullptr;
-	std::unique_ptr<WaterSurface> waterSurface = nullptr;
 
-	std::vector<particledata> particledatas;
-	std::set<particledata> removes;
-
+	std::vector<Decoration*> decors;
+	
+	ProjectileManager projectileManager;
 	float timer = 0;
 
 };

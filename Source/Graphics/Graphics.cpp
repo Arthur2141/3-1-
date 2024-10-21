@@ -153,10 +153,10 @@ Graphics::Graphics(HWND hWnd)
 		shader[static_cast<int>(ShaderType::WaterSurfaceShader)] = std::make_unique<WaterSurfaceShader>(device.Get());
 		shader[static_cast<int>(ShaderType::NONE)] = nullptr;
 		shader[static_cast<int>(ShaderType::ReflectMapShader)] = std::make_unique<ReflectMapShader>(device.Get());
-		shader[static_cast<int>(ShaderType::WaterSurfaceRipplesShader)] = std::make_unique<WaterSurfaceRipplesShader>(device.Get());
+		/*shader[static_cast<int>(ShaderType::WaterSurfaceRipplesShader)] = std::make_unique<WaterSurfaceRipplesShader>(device.Get());
 		shader[static_cast<int>(ShaderType::MakeCubeMapShader)] = std::make_unique<MakeCubeMapShader>(device.Get());
 		shader[static_cast<int>(ShaderType::UseCubeMapShader)] = std::make_unique<UseCubeMapShader>(device.Get());
-		shader[static_cast<int>(ShaderType::PhongDistructShader)] = std::make_unique<PhongDistructShader>(device.Get());
+		shader[static_cast<int>(ShaderType::PhongDistructShader)] = std::make_unique<PhongDistructShader>(device.Get());*/
 
 
 	}

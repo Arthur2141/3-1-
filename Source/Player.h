@@ -28,6 +28,8 @@ public:
 	// デバッグプリミティブ描画
 	void DrawDebugPrimitive();
 
+	Model* getModel() { return model; }
+
 protected:
 	// 着地した時に呼ばれる
 	void OnLanding() override;
@@ -177,10 +179,12 @@ private:
 	int					jumpCount = 0;
 	int					jumpLimit = 2;
 	ProjectileManager	projectileManager;
+
 	Effect*				hitEffect = nullptr;
 	Effect*				FlareEffect = nullptr;
 	State				state = State::Idle;
 	float				leftHandRadius = 0.4f;
 	bool				attackCollisionFlag = false; 
 	bool				visibleDebugPrimitive = true;
+	
 };

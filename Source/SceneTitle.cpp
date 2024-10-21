@@ -5,6 +5,7 @@
 #include "SceneLoading.h"
 #include "SceneManager.h"
 #include "Input/Input.h"
+#include "Scenesousa.h"
 
 // ‰Šú‰»
 void SceneTitle::Initialize()

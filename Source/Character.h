@@ -16,6 +16,9 @@ public:
 	// 位置取得
 	const DirectX::XMFLOAT3& GetPosition() const { return position; }
 
+	
+	const DirectX::XMFLOAT3& GetVelocity() const { return velocity; }
+	
 	// 位置設定
 	void SetPosition(const DirectX::XMFLOAT3& position) { this->position = position; }
 
@@ -46,11 +49,14 @@ public:
 	// 最大健康状態を取得
 	int GetMaxHealth() const { return maxHealth; }
 
+
 	// ダメージを与える
 	bool ApplyDamage(int damage, float invincibleTime);
 
 	// 衝撃を与える
 	void AddImpulse(const DirectX::XMFLOAT3& impulse);
+
+	void setNotmove() { notMoving = true; }
 
 protected:
 	// 着地した時に呼ばれる
@@ -112,4 +118,5 @@ protected:
 	float					airControl = 0.3f;
 	float					stepOffset = 1.0f;
 	float					slopeRate = 0.0f;
+	bool notMoving = false;
 };

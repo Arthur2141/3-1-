@@ -29,6 +29,10 @@ public:
 	// ’eŠÛ”æ“¾
 	int GetProjectileCount() const { return static_cast<int>(projectiles.size()); }
 
+	std::vector<DirectX::XMFLOAT3> getOffsets() { return offsets; }
+	
+	void setOffsets(DirectX::XMFLOAT3 offset) { offsets.emplace_back(offset); }
+
 	// ’eŠÛæ“¾
 	Projectile* GetProjectile(int index) { return projectiles.at(index); }
 
@@ -38,4 +42,5 @@ public:
 private:
 	std::vector<Projectile*>		projectiles;
 	std::set<Projectile*>			removes;
+	std::vector<DirectX::XMFLOAT3> offsets;
 };

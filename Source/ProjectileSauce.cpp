@@ -1,4 +1,5 @@
 #include "ProjectileSauce.h"
+#include "Effect.h"
 
 // コンストラクタ
 ProjectileSauce::ProjectileSauce(ProjectileManager* manager)
@@ -17,6 +18,7 @@ ProjectileSauce::ProjectileSauce(ProjectileManager* manager)
 		break;
 	}
 	model = new Model("Data/Model/Sword/Sword.mdl");
+	eff = new Effect("Data/Effect/Hit.efk");
 	targetpos = nullptr;
 	// 表示サイズを調整
 	//scale.x = scale.y = scale.z = 0.5f;
@@ -27,6 +29,7 @@ ProjectileSauce::ProjectileSauce(ProjectileManager* manager)
 ProjectileSauce::~ProjectileSauce()
 {
 	Destroy();
+	delete eff;
 	delete model;
 }
 
@@ -57,7 +60,7 @@ void ProjectileSauce::Update(float elapsedTime)
 		break;
 	case Stuck:
 		position.x = targetpos->x+offset.x;
-		position.y = targetpos->y+offset.y;
+		position.y = targetpos->y-offset.y;
 		position.z = targetpos->z+offset.z;
 		break;
 	default:

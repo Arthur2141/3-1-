@@ -7,8 +7,11 @@ class StaticObject
 {
 public:
 	StaticObject() {}
-	virtual ~StaticObject() {
+	virtual ~StaticObject() 
+	{
+		//if(model!=nullptr)
 		delete model;
+		//model = nullptr;
 	}
 
 	// XVˆ—
